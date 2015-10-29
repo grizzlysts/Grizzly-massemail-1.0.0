@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Grizzly_MassEmail>
+            <version>1.0.0</version>
+        </Grizzly_MassEmail>
+    </modules>
+	<frontend>
+		<routers>
+			<massemail>
+				<use>standard</use>
+				<args>
+					<module>Grizzly_MassEmail</module>
+					<frontName>massemail</frontName>
+				</args>
+			</massemail>
+		</routers>
+		
+		<layout>
+			<updates>
+				<massemail module="Grizzly_MassEmail">
+					<file>massemail.xml</file>
+				</massemail>
+			</updates>
+		</layout>
+
+	</frontend>
+
+	<global>
+        
+		<models>
+			
+			<massemail>
+				<class>Grizzly_MassEmail_Model</class>
+				
+			</massemail>
+
+		</models>
+
+		<helpers>
+			<massemail>
+				<class>Grizzly_MassEmail_Helper</class>
+			</massemail>
+		</helpers>
+
+		<default>
+		    <grizzly_massemail>
+		        <general>
+		            <email_template>mass_email_template</email_template> 
+				</general>
+		    </grizzly_massemail>
+		</default>
+		
+		<template>
+    		<email>
+        		<grizzly_massemail_general_email_template translate="label" module="massemail">
+	            	<label>Mass Email</label>
+	            	<file>grizzly_massemail.html</file>
+	            	<type>html</type>
+        		</grizzly_massemail_general_email_template>
+    		</email>
+		</template>
+        
+
+	</global>
+
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<grizzly_massemail before="Mage_Adminhtml">Grizzly_MassEmail_Adminhtml</grizzly_massemail>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+
+	<adminhtml>
+
+		<events>
+			<core_block_abstract_prepare_layout_before>
+			    <observers>
+				<massemail_core_block_abstract_prepare_layout_before>
+				    <class>massemail/observer</class>
+				    <method>addMassAction</method>
+				</massemail_core_block_abstract_prepare_layout_before>
+			    </observers>
+			</core_block_abstract_prepare_layout_before>
+		</events>
+
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<grizzly_massemail>
+							<title>Massemail Module</title>
+							<sort_order>20</sort_order>
+						</grizzly_massemail>
+						<system>
+							<children>
+								<config>
+									<children>
+										<grizzly_massemail translate="title" module="massemail">
+											<title>Massemail</title>
+											<sort_order>51</sort_order>
+										</grizzly_massemail>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+
+	</adminhtml>
+
+	
+</config>

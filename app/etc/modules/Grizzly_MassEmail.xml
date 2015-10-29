@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+
+        <Grizzly_MassEmail>
+            <active>True</active>
+            <codePool>community</codePool>
+	</Grizzly_MassEmail>
+    </modules>
+</config>
+
+
